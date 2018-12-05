@@ -1,0 +1,8 @@
+{
+  "android": {
+    "v8Flags": "--expose_gc"
+  },
+  "main": "main",
+  "name": "menzis-zorg-assistent-vue",
+  "version": "1.0.0"
+}
