@@ -1,6 +1,6 @@
 <template>
     <Page>
-        <ActionBar title="Welcome to NativeScript-Vue!"></ActionBar>
+
         <FlexboxLayout flexDirection="column" backgroundColor="#3c495e">
             <Label class="message" :text="msg" flexGrow="1" backgroundColor="#43b883"/>
             <Button text="Druk hier op"  @tap="buttonTap" />
