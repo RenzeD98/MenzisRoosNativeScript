@@ -2,6 +2,7 @@ import Vue from 'nativescript-vue';
 import VueDevtools from 'nativescript-vue-devtools';
 
 import App from './components/App';
+import Conversation from './components/Conversation';
 
 if(TNS_ENV !== 'production') {
   Vue.use(VueDevtools);
@@ -11,5 +12,5 @@ Vue.config.silent = (TNS_ENV === 'production');
 
 
 new Vue({
-  render: h => h('frame', [h(App)])
+  render: h => h('frame', [h(Conversation)])
 }).$start();
