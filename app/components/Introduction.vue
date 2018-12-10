@@ -99,14 +99,14 @@
     .custombutton {
         height: 50;
         background-color: #105D94;
-        border-width: 3;
+        border-width: 2;
         border-color: white;
         border-radius: 10;
         color: white;
         text-transform: none;
         box-shadow: unset;
         outline: unset;
-
+        margin-right: 20px;
     }
 
     .buttonselected{
