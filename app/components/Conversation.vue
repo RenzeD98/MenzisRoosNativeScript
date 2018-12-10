@@ -16,6 +16,7 @@
 
 <script>
     import { SpeechRecognition } from "nativescript-speech-recognition";
+    require( "nativescript-localstorage" );
     const httpModule = require("http");
     var speechRecognition = new SpeechRecognition();
 

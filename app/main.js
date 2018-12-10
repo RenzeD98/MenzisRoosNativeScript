@@ -3,6 +3,10 @@ import VueDevtools from 'nativescript-vue-devtools';
 
 import App from './components/App';
 import Conversation from './components/Conversation';
+import Introduction from './components/Introduction';
+
+require( "nativescript-localstorage" );
+
 
 if(TNS_ENV !== 'production') {
   Vue.use(VueDevtools);
