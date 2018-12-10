@@ -1,7 +1,7 @@
 <template>
     <Page statusBarStyle="dark" androidStatusBarBackground="#105382" actionBarHidden="true" >
         <GridLayout columns="*, *, *, *, *, *" rows="*, *, *, *, *, *, *, *, *">
-            <Label textWrap="true" col="1" row="2" colSpan="4" rowSpan="2" class="introtxt">
+            <Label textWrap="true" col="1" row="1" colSpan="4" rowSpan="2" class="introtxt">
                 <FormattedString>
                     <Span text="Hallo, ik ben uw virtuele assistent, maar u mag mij Roos noemen. Maak hier uw profiel aan!" />
                 </FormattedString>
