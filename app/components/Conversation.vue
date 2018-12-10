@@ -17,7 +17,7 @@
 <script>
     import { SpeechRecognition } from "nativescript-speech-recognition";
     const httpModule = require("http");
-    var speechRecognition = new SpeechRecognition();
+    const speechRecognition = new SpeechRecognition();
 
     export default {
         data() {
@@ -65,6 +65,9 @@
                     this.msg = JSON.stringify(e);
                 });
             },
+            logMessages(message){
+                localStorage.setItem('messages[]', message);
+            },
             startOrStopSpeech(){
                 if (this.isListening) {
                     this.stopSpeech();
@@ -95,6 +98,7 @@
             stopSpeech(){
                 speechRecognition.stopListening();
                 this.isListening = false;
+                this.getWatsonAnswer();
             }
         }
     // Tests:
