@@ -22,7 +22,7 @@
     export default {
         data() {
             return {
-                msg: 'Test',
+                msg: 'Hallo, waarmee kan ik u helpen',
                 input: '',
                 inputToggle: false,
                 inputSent: false,
@@ -38,6 +38,7 @@
             sendInput(){
                 this.inputSent = true;
                 this.inputToggle = false;
+                this.getWatsonAnswer();
             },
             editInput(){
                 
