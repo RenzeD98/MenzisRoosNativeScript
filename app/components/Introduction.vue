@@ -1,17 +1,15 @@
 <template>
     <Page statusBarStyle="dark" androidStatusBarBackground="#105382" actionBarHidden="true" >
-            <!-- <Button text="Man" class="custombutton" @tap="onButtonTap" />
-            <Button text="Vrouw" class="custombutton" @tap="onButtonTap" /> -->
-        <GridLayout columns="*, *, *, *, *, *" rows="*, *, *, *, *, *">
-            <Label textWrap="true" col="1" row="1" colSpan="4" class="introtxt">
+        <GridLayout columns="*, *, *, *, *, *" rows="*, *, *, *, *, *, *, *, *">
+            <Label textWrap="true" col="1" row="2" colSpan="4" rowSpan="2" class="introtxt">
                 <FormattedString>
                     <Span text="Hallo, ik ben uw virtuele assistent, maar u mag mij Roos noemen. Maak hier uw profiel aan!" />
                 </FormattedString>
             </Label>
-            <Button text="Man" col="1" :class="{'buttonselected' : gender == 'male'}" row="2.5" colSpan="2" class="custombutton" @tap="chooseGender('male')" />
-            <Button text="Vrouw" col="3" :class="{'buttonselected' : gender == 'female'}" row="2.5" colSpan="2" class="custombutton" @tap="chooseGender('female')" />
-            <DatePicker ref="date" class="birthdate" id="date" color="white" minDate="01-01-1900" maxDate="2006-12-31" col="1" row="3" colSpan="4" v-model="birthDate"/>
-            <Button text="Verder" col="2" row="5" colSpan="2" @tap="saveDateAndContinue" />
+            <Button text="Man" col="1" :class="{'buttonselected' : gender == 'male'}" row="4" colSpan="2" class="custombutton" @tap="chooseGender('male')" />
+            <Button text="Vrouw" col="3" :class="{'buttonselected' : gender == 'female'}" row="4" colSpan="2" class="custombutton" @tap="chooseGender('female')" />
+            <DatePicker ref="date" class="birthdate" id="date" color="white" minDate="01-01-1900" maxDate="2006-12-31" col="1" row="5" colSpan="4" v-model="birthDate"/>
+            <Button text="Verder" col="2" row="9" colSpan="2" @tap="saveDateAndContinue" />
         </GridLayout>
 
 
@@ -81,7 +79,6 @@
         color: white;
         text-align: center;
         font-size: 24px;
-        /* margin: 15%, 15%, 10%, 15%; */
     }
 
     .message {
@@ -117,5 +114,9 @@
     Button {
         height: 50;
         color: #105D94;
+    }
+
+    Datepicker {
+        font-size: 20;
     }
 </style>
