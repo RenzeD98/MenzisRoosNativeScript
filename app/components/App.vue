@@ -1,8 +1,8 @@
 <template>
-    <Page>
+    <Page statusBarStyle="dark" androidStatusBarBackground="#105D94" >
         <ActionBar title="Welcome to NativeScript-Vue!"></ActionBar>
         <FlexboxLayout flexDirection="column" backgroundColor="#3c495e">
-            <Label v-for="message in messages" class="message" v-bind:text="msg" flexGrow="1" backgroundColor="#43b883"/>
+            <!-- <Label v-for="message in messages" class="message" v-bind:text="msg" flexGrow="1" backgroundColor="#43b883"/> -->
             <Button text="Druk hier op"  v-on:tap="$navigateTo(Home)" />
         </FlexboxLayout>
     </Page>
