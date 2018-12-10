@@ -1,12 +1,15 @@
 <template>
     <Page actionBarHidden="true" statusBarStyle="light">
         
-    <GridLayout columns="*, 180, *" rows="*, 160, *, 40, 20">
-        <Label class="main-text roboto" :text="msg" row="1" col="1" textWrap="true" />
-        <Button class="keyboard-button" @tap="keyboardTap" v-if="!inputToggle" row="3" col="1" />
+    <GridLayout columns="*, 180, *" rows="*, 160, *, 100, 60">
         <Label class="sent-text roboto-italic" :text="input" row="0" col="1" textWrap="true" v-if="input != ''" @tap="keyboardTap" />
-        <Button class="speech-button" :class="{'speech-listening' : isListening}" @tap="startSpeech()" col="0" row="2" colSpan="3"></Button>
-        <TextField ref="txtField" class="input-field roboto" v-model="input" hint="Enter text..." v-if="inputToggle" row="3" col="1" @returnPress="sendInput" returnKeyType="send" />
+
+        <Label class="main-text roboto" :class="{'yeet' : isListening}" :text="msg" row="1" col="1" textWrap="true" />
+        
+        <Button class="speech-button" :class="{'speech-listening' : isListening}" @tap="startOrStopSpeech()" col="0" row="3" colSpan="3"></Button>
+
+        <Button class="keyboard-button" @tap="keyboardTap" v-if="!inputToggle" row="4" col="1" />
+        <TextField ref="txtField" class="input-field roboto" v-model="input" hint="Enter text..." v-if="inputToggle" row="4" col="1" @blur="inputSent = !inputSent" @returnPress="sendInput" returnKeyType="send" />
     </GridLayout>
     </Page>
 </template>
@@ -16,8 +19,6 @@
     var speechRecognition = new SpeechRecognition();
 
     export default {
-        mounted() {
-        },
         data() {
             return {
                 msg: 'Goedendag, waar kan ik u mee helpen?',
@@ -40,7 +41,14 @@
                 
             },
             getWatsonAnswer(){
-                
+
+            },
+            startOrStopSpeech(){
+                if (this.isListening) {
+                    this.stopSpeech();
+                } else{
+                    this.startSpeech();
+                }
             },
             startSpeech(){
                 speechRecognition.startListening({
@@ -61,6 +69,10 @@
                     },
                     (errorMessage) => { console.log(`Error: ${errorMessage}`); }
                 );
+            },
+            stopSpeech(){
+                speechRecognition.stopListening();
+                this.isListening = false;
             }
         }
     // Tests:
@@ -80,10 +92,12 @@
     .main-text{
         font-size: 18;
         text-align: center;
+        transition-duration: 3s;
     }
     .keyboard-button{
         height: 40;
         width: 40;
+        padding: 10;
         background-image: url('~/assets/images/keyboard.png');
         background-repeat: no-repeat;
     }
@@ -91,7 +105,8 @@
         background-image: url('~/assets/images/speech-idle.png');
         background-repeat: no-repeat;
         padding-bottom: 10;
-        background-position: 0 -120;
+        background-attachment: fixed;
+        background-position: center; 
     }
     .speech-listening{
         background-image: url('~/assets/images/speech-moving.png');
