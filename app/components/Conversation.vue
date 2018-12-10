@@ -1,10 +1,10 @@
 <template>
     <Page actionBarHidden="true" statusBarStyle="light">
         
-    <GridLayout columns="*, 180, *" rows="*, 160, *, 100, 60">
+    <GridLayout columns="*, *, *" rows="*, *, *, 100, 60">
         <Label class="sent-text roboto-italic" :text="input" row="0" col="1" textWrap="true" v-if="input != ''" @tap="keyboardTap" />
 
-        <Label class="main-text roboto" :class="{'yeet' : isListening}" :text="msg" row="1" col="1" textWrap="true" />
+        <Label class="main-text roboto" :text="msg" row="1" col="1" textWrap="true" />
         
         <Button class="speech-button" :class="{'speech-listening' : isListening}" @tap="startOrStopSpeech()" col="0" row="3" colSpan="3"></Button>
 
@@ -16,16 +16,18 @@
 
 <script>
     import { SpeechRecognition } from "nativescript-speech-recognition";
+    const httpModule = require("http");
     var speechRecognition = new SpeechRecognition();
 
     export default {
         data() {
             return {
-                msg: 'Goedendag, waar kan ik u mee helpen?',
+                msg: 'Test',
                 input: '',
                 inputToggle: false,
                 inputSent: false,
-                isListening: false
+                isListening: false,
+                context: null,
             }
         },
         methods: {
@@ -41,7 +43,26 @@
                 
             },
             getWatsonAnswer(){
-
+                httpModule.request({
+                    url: "https://gateway-fra.watsonplatform.net/assistant/api/v1/workspaces/1cd29412-4a54-42d6-bdc8-c165cb69bb50/message?version=2018-09-20",
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Basic YXBpa2V5OlkwdzNwcW5OamFCSDlzYmZOY1NPNFBtZkxhRC1NTEJHZ2ZsaG9HcTcxQlBG"
+                    },
+                    content: JSON.stringify({
+                        context: this.context,
+                        input: {
+                            text: this.input
+                        }
+                    })
+                }).then((response) => {
+                    let content = JSON.parse(response.content);
+                    this.msg = content.output.text;
+                    this.context = content.context;
+                }, (e) => {
+                    this.msg = JSON.stringify(e);
+                });
             },
             startOrStopSpeech(){
                 if (this.isListening) {
@@ -60,10 +81,10 @@
                         this.input = transcription.text;
                         if (transcription.finished == true) {
                             this.isListening = false;
+                            this.getWatsonAnswer();
                         }
                     },
-                }).then(
-                    (started) => { 
+                }).then(started => {
                         console.log(`started listening`);
                         this.isListening = true;
                     },
