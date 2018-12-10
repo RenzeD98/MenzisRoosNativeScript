@@ -4,7 +4,7 @@
     <GridLayout columns="*, 180, *" rows="*, 160, *, 100, 60">
         <Label class="sent-text roboto-italic" :text="input" row="0" col="1" textWrap="true" v-if="input != ''" @tap="keyboardTap" />
 
-        <Label class="main-text roboto" :class="{'yeet' : isListening}" :text="msg" row="1" col="1" textWrap="true" />
+        <Label class="main-text roboto" :text="msg" row="1" col="1" textWrap="true" />
         
         <Button class="speech-button" :class="{'speech-listening' : isListening}" @tap="startOrStopSpeech()" col="0" row="3" colSpan="3"></Button>
 
