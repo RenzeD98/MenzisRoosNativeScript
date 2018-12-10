@@ -8,9 +8,10 @@
                     <Span text="Hallo, ik ben uw virtuele assistent, maar u mag mij Roos noemen. Maak hier uw profiel aan!" />
                 </FormattedString>
             </Label>
-            <Button text="Man" col="1" row="2.5" colSpan="2" class="custombutton" @tap="onButtonTap" />
-            <Button text="Vrouw" col="3" row="2.5" colSpan="2" class="custombutton" @tap="onButtonTap" />
-            <DatePicker class="birthdate" color="white" :day="currentDay" :month="currentMonth" :year="currentYear" minDate="01-01-1900" maxDate="2006-12-31" col="1" row="3" colSpan="4" />
+            <Button text="Man" col="1" :class="{'buttonselected' : gender == 'male'}" row="2.5" colSpan="2" class="custombutton" @tap="chooseGender('male')" />
+            <Button text="Vrouw" col="3" :class="{'buttonselected' : gender == 'female'}" row="2.5" colSpan="2" class="custombutton" @tap="chooseGender('female')" />
+            <DatePicker ref="date" class="birthdate" id="date" color="white" :day="currentDay" :month="currentMonth" :year="currentYear" minDate="01-01-1900" maxDate="2006-12-31" col="1" row="3" colSpan="4" v-model="birthDate"/>
+            <Button text="Verder" col="2" row="5" colSpan="2" @tap="saveDate" />
         </GridLayout>
 
 
@@ -20,6 +21,7 @@
 <script>
   import Home from '../components/Home';
   import axios from 'axios';
+  var LS = require("nativescript-localstorage");
 
   export default {
     mounted() {
@@ -30,6 +32,8 @@
         Home: Home,
         msg: 'Test',
         messages: [],
+        birthDate: "",
+        gender: ''
       }
     },
     methods: {
@@ -46,6 +50,14 @@
             axios.get(options).then(response => {
                 this.messages = response.output.text
             });
+        },
+        chooseGender(gender) {
+            localStorage.setItem('gender', gender);
+            this.gender = gender;
+        },
+        saveDateAndContinue() {
+            localStorage.setItem('birthdate', this.birthDate);
+
         }
     }
   }
@@ -87,14 +99,27 @@
     .custombutton {
         height: 50;
         background-color: #105D94;
-        border: 5px solid white ;
+        border-width: 3;
+        border-color: white;
+        border-radius: 10;
         color: white;
         text-transform: none;
         box-shadow: unset;
         outline: unset;
+
+    }
+
+    .buttonselected{
+        background-color: white;
+        color: #105D94;
     }
 
     DatePicker {
         color: white;
+    }
+
+    Button {
+        height: 50;
+        color: #105D94;
     }
 </style>
