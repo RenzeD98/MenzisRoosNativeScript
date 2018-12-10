@@ -17,7 +17,7 @@
 </template>
 
 <script>
-  import Home from '../components/Home';
+  import Conversation from '../components/Conversation';
   import axios from 'axios';
   var LS = require("nativescript-localstorage");
 
@@ -27,7 +27,7 @@
     },
     data() {
       return {
-        Home: Home,
+        Conversation: Conversation,
         msg: 'Test',
         messages: [],
         birthDate: "",
@@ -55,7 +55,7 @@
         },
         saveDateAndContinue() {
             localStorage.setItem('birthdate', this.birthDate);
-
+            this.$navigateTo(this.Conversation);
         }
     }
   }

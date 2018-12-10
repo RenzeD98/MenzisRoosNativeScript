@@ -8,3 +8,12 @@
 
 // Global SCSS styling
 // @see https://docs.nativescript.org/ui/styling
+
+.roboto{
+    font-family: 'Roboto-Regular', sans-serif;
+}
+
+.roboto-italic{
+    font-family: 'Roboto-Italic', sans-serif;
+    font-style: italic;
+}
