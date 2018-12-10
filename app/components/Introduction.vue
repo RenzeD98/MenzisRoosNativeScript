@@ -114,10 +114,6 @@
         color: #105D94;
     }
 
-    DatePicker {
-        color: white;
-    }
-
     Button {
         height: 50;
         color: #105D94;
