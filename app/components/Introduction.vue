@@ -78,7 +78,7 @@
         font-family: 'Roboto', sans-serif;
         color: white;
         text-align: center;
-        font-size: 24px;
+        font-size: 20;
     }
 
     .message {
