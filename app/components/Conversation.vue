@@ -62,7 +62,7 @@
                     this.msg = content.output.text;
                     this.context = content.context;
                 }, (e) => {
-                    this.msg = JSON.stringify(e);
+                    console.log(e);
                 });
             },
             logMessages(message){
