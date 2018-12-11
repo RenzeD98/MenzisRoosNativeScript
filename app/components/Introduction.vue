@@ -13,8 +13,7 @@
                     <FormattedString>
                         <Span text="Roos is uw nieuwe virtuele doktersassistente. Zij luistert naar uw klachten en geeft advies over de vervolgstappen die u hierbij kunt nemen." />
                     </FormattedString>
-                </Label> 
-                <Image src="~/assets/images/progress_01.png" stretch="fill" height="5" col="2" row="10" colSpan="4" rowSpan="1" />             
+                </Label>             
               </GridLayout>
             </TabViewItem>
             <TabViewItem title="Tab 2">
@@ -29,8 +28,7 @@
                     <FormattedString>
                         <Span text="Roos geeft advies over de medische klachten die u ervaart. Hierdoor krijgt u een helder inzicht in de mogelijke oorzaken en oplossingen." />
                     </FormattedString>
-                </Label>
-                <Image src="~/assets/images/progress_02.png" stretch="fill" height="5" col="2" row="10" colSpan="4" rowSpan="1" />              
+                </Label>           
               </GridLayout>
             </TabViewItem>
             <TabViewItem title="Tab 3">
@@ -46,7 +44,6 @@
                         <Span text="Roos is een doktersassistente en dus geen vervanger van de huisarts. Neem bij twijfel altijd contact op met een medisch specialist." />
                     </FormattedString>
                 </Label>  
-                <Image src="~/assets/images/progress_03.png" stretch="fill" height="5" col="2" row="10" colSpan="4" rowSpan="1" />  
                 <Button text="Doorgaan" col="2" row="12" colSpan="4" @tap="agreeAndContinue" />          
               </GridLayout>
             </TabViewItem>            
@@ -96,7 +93,7 @@ import CreateProfile from '../components/CreateProfile';
         font-family: 'Roboto', sans-serif;
         color: white;
         text-align: center;
-        font-size: 17;
+        font-size: 15;
         font-style: italic;
         line-height: 5;
         margin: 0 40 0 40;
