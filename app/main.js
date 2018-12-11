@@ -1,6 +1,7 @@
 import Vue from 'nativescript-vue';
 import VueDevtools from 'nativescript-vue-devtools';
 
+import Introduction from './components/Introduction';
 import Conversation from './components/Conversation';
 import CreateProfile from './components/CreateProfile';
 
@@ -21,5 +22,5 @@ if (gender && birthdate) {
 }
 
 new Vue({
-  render: h => h('frame', [h(StartComponent)])
+  render: h => h('frame', [h(Introduction)])
 }).$start();
