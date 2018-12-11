@@ -2,7 +2,7 @@ import Vue from 'nativescript-vue';
 import VueDevtools from 'nativescript-vue-devtools';
 
 import Conversation from './components/Conversation';
-import Introduction from './components/Introduction';
+import CreateProfile from './components/CreateProfile';
 
 
 if(TNS_ENV !== 'production') {
@@ -12,5 +12,5 @@ if(TNS_ENV !== 'production') {
 Vue.config.silent = (TNS_ENV === 'production');
 
 new Vue({
-  render: h => h('frame', [h(Introduction)])
+  render: h => h('frame', [h(CreateProfile)])
 }).$start();
