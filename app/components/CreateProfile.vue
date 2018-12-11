@@ -19,9 +19,6 @@
   var LS = require("nativescript-localstorage");
 
   export default {
-    mounted() {
-        this.sendRequest();
-    },
     data() {
       return {
         Conversation: Conversation,
