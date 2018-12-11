@@ -4,7 +4,7 @@
     <!-- Application theme -->
     <style name="AppTheme" parent="AppThemeBase">
         <item name="android:datePickerStyle">@style/SpinnerDatePicker</item>
-        <item name="android:textColorPrimary">#FFFFFF</item>
+        <!-- <item name="android:textColorPrimary">#FFFFFF</item> -->
         <item name="android:timePickerStyle">@style/SpinnerTimePicker</item>
     </style>
 
