@@ -11,14 +11,11 @@
             <DatePicker ref="date" class="birthdate" id="date" color="white" minDate="01-01-1900" maxDate="2006-12-31" col="1" row="5" colSpan="4" v-model="birthDate"/>
             <Button text="Verder" col="2" row="9" colSpan="2" @tap="saveDateAndContinue" />
         </GridLayout>
-
-
     </Page>
 </template>
 
 <script>
   import Conversation from '../components/Conversation';
-  import axios from 'axios';
   var LS = require("nativescript-localstorage");
 
   export default {
@@ -35,20 +32,6 @@
       }
     },
     methods: {
-        sendRequest() {
-            var options = {
-                method: 'GET',
-                url: 'https://gateway-fra.watsonplatform.net/assistant/api/v1/workspaces/1cd29412-4a54-42d6-bdc8-c165cb69bb50/message?version=2018-09-20',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                    "Authorization": "Basic YXBpa2V5OlkwdzNwcW5OamFCSDlzYmZOY1NPNFBtZkxhRC1NTEJHZ2ZsaG9HcTcxQlBG",
-                },
-            };
-            axios.get(options).then(response => {
-                this.messages = response.output.text
-            });
-        },
         chooseGender(gender) {
             localStorage.setItem('gender', gender);
             this.gender = gender;
