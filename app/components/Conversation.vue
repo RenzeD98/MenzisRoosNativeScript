@@ -62,7 +62,7 @@
                     this.msg = content.output.text;
                     this.context = content.context;
                 }, (e) => {
-                    this.msg = JSON.stringify(e);
+                    console.log(e);
                 });
             },
             logMessages(message){
@@ -119,6 +119,7 @@
         font-size: 18;
         text-align: center;
         transition-duration: 3s;
+        padding: 10;
     }
     .keyboard-button{
         height: 40;
@@ -144,5 +145,6 @@
     .input-field{
         font-style: italic;
         border-bottom: 1px solid #ccc;
+        color: white;
     }
 </style>
