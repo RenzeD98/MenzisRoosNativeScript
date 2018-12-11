@@ -16,9 +16,9 @@
 
 <script>
     import { SpeechRecognition } from "nativescript-speech-recognition";
-    require( "nativescript-localstorage" );
-    const httpModule = require("http");
     const speechRecognition = new SpeechRecognition();
+    const LS = require("nativescript-localstorage");
+    const httpModule = require("http");
 
     export default {
         data() {
@@ -29,6 +29,8 @@
                 inputSent: false,
                 isListening: false,
                 context: null,
+                LSnumber: LS.getItem('LSnumber'),
+                chatHistory: [],
             }
         },
         methods: {
@@ -67,7 +69,7 @@
                 });
             },
             logMessages(message){
-                localStorage.setItem('messages[]', message);
+                localStorage.setItem('messages', message);
             },
             startOrStopSpeech(){
                 if (this.isListening) {
@@ -87,6 +89,9 @@
                         if (transcription.finished == true) {
                             this.isListening = false;
                             this.getWatsonAnswer();
+
+                            this.chatHistory.push([{'type': 'input', 'message': this.input}]);
+                            LS.setItem('messages', JSON.stringify(this.chatHistory));
                         }
                     },
                 }).then(started => {

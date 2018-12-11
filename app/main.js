@@ -5,8 +5,15 @@ import App from './components/App';
 import Conversation from './components/Conversation';
 import Introduction from './components/Introduction';
 
-require( "nativescript-localstorage" );
+const connectivityModule = require("tns-core-modules/connectivity");
+const myConnectionType = connectivityModule.getConnectionType();
 
+console.log(myConnectionType);
+if(myConnectionType == connectivityModule.connectionType.none) {
+    console.log('geen internet');
+} else {
+    console.log('wel internet');
+}
 
 if(TNS_ENV !== 'production') {
   Vue.use(VueDevtools);
@@ -16,5 +23,5 @@ Vue.config.silent = (TNS_ENV === 'production');
 
 
 new Vue({
-  render: h => h('frame', [h(Introduction)])
+  render: h => h('frame', [h(Conversation)])
 }).$start();
