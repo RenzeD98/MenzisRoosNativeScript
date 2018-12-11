@@ -42,13 +42,7 @@
 </script>
 
 <style scoped>
-
-@import url('https://fonts.googleapis.com/css?family=Roboto');
-
-    ActionBar {
-        background-color: white;
-        color: black;
-    }
+    @import url('~/app.css');
 
     page {
         background-color: #105D94;
@@ -59,13 +53,6 @@
         color: white;
         text-align: center;
         font-size: 20;
-    }
-
-    .message {
-        vertical-align: center;
-        text-align: center;
-        font-size: 20;
-        color: #333333;
     }
 
     .birthdate {
@@ -89,14 +76,5 @@
     .buttonselected{
         background-color: white;
         color: #105D94;
-    }
-
-    Button {
-        height: 50;
-        color: #105D94;
-    }
-
-    Datepicker {
-        font-size: 20;
     }
 </style>
