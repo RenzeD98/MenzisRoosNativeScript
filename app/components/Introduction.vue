@@ -46,7 +46,8 @@
                         <Span text="Roos is een doktersassistente en dus geen vervanger van de huisarts. Neem bij twijfel altijd contact op met een medisch specialist." />
                     </FormattedString>
                 </Label>  
-                <Image src="~/assets/images/progress_03.png" stretch="fill" height="5" col="2" row="10" colSpan="4" rowSpan="1" />            
+                <Image src="~/assets/images/progress_03.png" stretch="fill" height="5" col="2" row="10" colSpan="4" rowSpan="1" />  
+                <Button text="Doorgaan" col="2" row="12" colSpan="4" @tap="agreeAndContinue" />          
               </GridLayout>
             </TabViewItem>            
         </TabView>
@@ -54,12 +55,19 @@
 </template>
 
 <script>
+import CreateProfile from '../components/CreateProfile';
+
   export default {
     data() {
       return {
       }
-    }
+  },
+  methods: {
+    agreeAndContinue() {
+        this.$navigateTo(CreateProfile);
+    }   
   }
+}
 </script>
 
 <style scoped>
