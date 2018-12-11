@@ -6,6 +6,7 @@ import CreateProfile from './components/CreateProfile';
 
 var LS = require("nativescript-localstorage");
 var gender = LS.getItem('gender');
+var birthdate = LS.getItem('birthdate');
 
 if(TNS_ENV !== 'production') {
   Vue.use(VueDevtools);
@@ -13,7 +14,7 @@ if(TNS_ENV !== 'production') {
 // Prints Vue logs when --env.production is *NOT* set while building
 Vue.config.silent = (TNS_ENV === 'production');
 
-if (gender) {
+if (gender && birthdate) {
   var StartComponent = Conversation;
 } else{
   var StartComponent = CreateProfile;
