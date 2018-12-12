@@ -1,9 +1,9 @@
 <template>
     <Page statusBarStyle="dark" androidStatusBarBackground="#105382" actionBarHidden="true" >
         <GridLayout columns="*, *, *, *, *" rows="*, 30, 50, 15">
-            <TabView col="0" row="0" colSpan="5" :selectedIndex="selectedIndex" @selectedIndexChange="selectedIndex = $event.value" selectedTabTextColor="#105D94" tabBackgroundColor="#105D94" tabTextColor="#105D94" translateY="-45" androidSelectedTabHighlightColor="white">
+            <TabView col="0" row="0" colSpan="5" :selectedIndex="selectedIndex" @selectedIndexChange="selectedIndex = $event.value" selectedTabTextColor="#105D94" tabBackgroundColor="#105D94" tabTextColor="#105D94" translateY="-50" androidSelectedTabHighlightColor="white">
                 <TabViewItem title="Tab 1">
-                    <GridLayout columns="*, *, *, *, *, *, *, *" rows="*, 150, 15, 90, 15, 80, *">
+                    <GridLayout columns="*, *, *, *, *, *, *, *" rows="*, 170, 15, 90, 15, 80, *">
                         <Image src="~/assets/images/assistent.png" stretch="fill" col="2" row="1" colSpan="4" />
                         <Label textWrap="true" col="1" row="3" colSpan="6" class="subtitle">
                             <FormattedString>
@@ -18,7 +18,7 @@
                     </GridLayout>
                 </TabViewItem>
                 <TabViewItem title="Tab 2">
-                    <GridLayout columns="*, *, *, *, *, *, *, *" rows="*, 150, 15, 90, 15, 80, *">
+                    <GridLayout columns="*, *, *, *, *, *, *, *" rows="*, 170, 15, 90, 15, 80, *">
                         <Image src="~/assets/images/chat.png" stretch="fill" col="2" row="1" colSpan="4" />
                         <Label textWrap="true" col="1" row="3" colSpan="6" class="subtitle">
                             <FormattedString>
@@ -33,7 +33,7 @@
                     </GridLayout>
                 </TabViewItem>
                 <TabViewItem title="Tab 3">
-                    <GridLayout columns="*, *, *, *, *, *, *, *" rows="*, 150, 15, 90, 15, 80, *">
+                    <GridLayout columns="*, *, *, *, *, *, *, *" rows="*, 170, 15, 90, 15, 80, *">
                         <Image src="~/assets/images/case.png" stretch="fill" col="2" row="1" colSpan="4" />
                         <Label textWrap="true" col="1" row="3" colSpan="6" class="subtitle">
                             <FormattedString>

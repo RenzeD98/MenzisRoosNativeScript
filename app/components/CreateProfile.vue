@@ -8,7 +8,6 @@
             </Label>
             <Button text="Man" col="1" :class="{'buttonselected' : gender == 'male'}" row="4" colSpan="2" class="custombutton" @tap="chooseGender('male')" />
             <Button text="Vrouw" col="3" :class="{'buttonselected' : gender == 'female'}" row="4" colSpan="2" class="custombutton" @tap="chooseGender('female')" />
-            <DatePicker ref="date" class="birthdate" id="date" color="white" minDate="01-01-1900" maxDate="2006-12-31" col="1" row="5" colSpan="4" v-model="birthDate"/>
             <Button text="Verder" col="2" row="9" colSpan="2" @tap="saveDateAndContinue" />
         </GridLayout>
     </Page>
@@ -24,7 +23,6 @@
         Conversation: Conversation,
         msg: 'Test',
         messages: [],
-        birthDate: "",
         gender: ''
       }
     },
@@ -34,7 +32,6 @@
             this.gender = gender;
         },
         saveDateAndContinue() {
-            localStorage.setItem('birthdate', this.birthDate);
             this.$navigateTo(this.Conversation);
         }
     }
@@ -68,8 +65,6 @@
         border-radius: 10;
         color: white;
         text-transform: none;
-        box-shadow: unset;
-        outline: unset;
         margin-right: 20px;
     }
 
