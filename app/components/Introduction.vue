@@ -26,7 +26,7 @@
                 </Label>    
                 <Label textWrap="true" col="0" row="8" colSpan="8" rowSpan="2" class="txt">
                     <FormattedString>
-                        <Span text="Roos geeft advies over de medische klachten die u ervaart. Hierdoor krijgt u een helder inzicht in de mogelijke oorzaken en oplossingen." />
+                        <Span text="Roos geef advies over de medische klachten die u ervaart. Hierdoor krijgt u een helder inzicht in de mogelijke oorzaken en oplossingen." />
                     </FormattedString>
                 </Label>           
               </GridLayout>
