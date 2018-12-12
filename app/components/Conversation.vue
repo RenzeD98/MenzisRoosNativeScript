@@ -19,8 +19,14 @@
     const speechRecognition = new SpeechRecognition();
     const LS = require("nativescript-localstorage");
     const httpModule = require("http");
+    const connectivityModule = require("tns-core-modules/connectivity");
+    const myConnectionType = connectivityModule.getConnectionType();
+    const dialogs = require("tns-core-modules/ui/dialogs");
 
     export default {
+        created() {
+
+        },
         data() {
             return {
                 msg: 'Hallo, waarmee kan ik u helpen',
@@ -34,6 +40,19 @@
             }
         },
         methods: {
+            checkInternetConnection() {
+                if(myConnectionType == connectivityModule.connectionType.none) {
+                    dialogs.alert({
+                        title: "Let op!",
+                        message: "Je hebt geen internetverbinding! Maak verbinding met het internet en probeer het opnieuw",
+                        okButtonText: "Ok"
+                    }).then(function () {
+                        console.log("Dialog closed");
+                    });
+                } else {
+                    console.log('wel internet');
+                }
+            },
             keyboardTap(){
                 this.inputToggle = true;
                 this.$nextTick(() => this.$refs.txtField.nativeView.focus())
@@ -65,7 +84,8 @@
                     this.msg = content.output.text;
                     this.context = content.context;
                 }, (e) => {
-                    this.msg = JSON.stringify(e);
+                    this.msg = 'Oeps, er ging iets mis';
+                    this.checkInternetConnection();
                 });
             },
             logMessages(message){
@@ -150,5 +170,9 @@
     .input-field{
         font-style: italic;
         border-bottom: 1px solid #ccc;
+    }
+
+    Dialog {
+        color: black;
     }
 </style>
