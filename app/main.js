@@ -7,6 +7,7 @@ import CreateProfile from './components/CreateProfile';
 
 var LS = require("nativescript-localstorage");
 var gender = LS.getItem('gender');
+var startedBefore = LS.getItem('startedBefore');
 
 if(TNS_ENV !== 'production') {
   Vue.use(VueDevtools);
@@ -20,6 +21,11 @@ if (gender) {
   var StartComponent = CreateProfile;
 }
 
+if (!startedBefore) {
+  var StartComponent = Introduction;
+  localStorage.setItem('startedBefore', true);
+}
+
 new Vue({
-  render: h => h('frame', [h(Introduction)])
+  render: h => h('frame', [h(StartComponent)])
 }).$start();
