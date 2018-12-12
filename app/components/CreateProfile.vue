@@ -8,7 +8,7 @@
             </Label>
             <Button text="Man" col="1" :class="{'buttonselected' : gender == 'male'}" row="4" colSpan="2" class="custombutton" @tap="chooseGender('male')" />
             <Button text="Vrouw" col="3" :class="{'buttonselected' : gender == 'female'}" row="4" colSpan="2" class="custombutton" @tap="chooseGender('female')" />
-            <Button text="Verder" col="2" row="9" colSpan="2" @tap="saveDateAndContinue" />
+            <Button :class="{'disabled' : gender == ''}" text="Verder" col="2" row="9" colSpan="2" @tap="saveDateAndContinue" />
         </GridLayout>
     </Page>
 </template>
@@ -27,12 +27,14 @@
       }
     },
     methods: {
+        saveDateAndContinue() {
+            if (this.gender != '') {
+                this.$navigateTo(Conversation);
+            }
+        },
         chooseGender(gender) {
             localStorage.setItem('gender', gender);
             this.gender = gender;
-        },
-        saveDateAndContinue() {
-            this.$navigateTo(this.Conversation);
         }
     }
   }
@@ -71,5 +73,9 @@
     .buttonselected{
         background-color: white;
         color: #105D94;
+    }
+
+        .disabled{
+        opacity: .5;
     }
 </style>
