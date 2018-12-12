@@ -60,13 +60,14 @@ import CreateProfile from '../components/CreateProfile';
 export default {
     data() {
         return {
-            selectedIndex: 0,
-            selectedTab: 0
+            selectedIndex: 0
         }
     },
     methods: {
         agreeAndContinue() {
-            this.$navigateTo(CreateProfile);
+            if (this.selectedIndex == 2) {
+                this.$navigateTo(CreateProfile);
+            }
         },
         indexChange(e){
             console.log(e);
@@ -80,9 +81,6 @@ export default {
 
     page {
         background-color: #105D94;
-    }
-    .progress{
-        margin-bottom: 15;
     }
     .subtitle {
         font-family: 'Roboto', sans-serif;
