@@ -22,13 +22,16 @@
     export default {
         data() {
             return {
-                msg: 'Hallo, waarmee kan ik u helpen',
+                msg: '',
                 input: '',
                 inputToggle: false,
                 inputSent: false,
                 isListening: false,
                 context: null,
             }
+        },
+        created(){
+            this.getWatsonAnswer();
         },
         methods: {
             keyboardTap(){
