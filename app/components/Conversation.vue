@@ -1,7 +1,7 @@
 <template>
     <Page actionBarHidden="true" statusBarStyle="light">
         
-    <GridLayout columns="*, *, *" rows="*, *, *, 100, 60">
+    <GridLayout columns="*, *, *" rows="*, *, *, 100, 60, 15">
         <Label class="sent-text roboto-italic" :text="input" row="0" col="1" textWrap="true" v-if="input != ''" @tap="keyboardTap" />
 
         <Label class="main-text roboto" :text="msg" row="1" col="0" colSpan="3" textWrap="true" />
@@ -18,6 +18,7 @@
     import { SpeechRecognition } from "nativescript-speech-recognition";
     const httpModule = require("http");
     const speechRecognition = new SpeechRecognition();
+    var LS = require("nativescript-localstorage");
 
     export default {
         data() {
@@ -28,9 +29,17 @@
                 inputSent: false,
                 isListening: false,
                 context: null,
+                gender: ''
             }
         },
         created(){
+            this.gender = LS.getItem('gender');
+            this.context = 
+            {
+                context: {
+                    gender: "female"
+                }
+            };
             this.getWatsonAnswer();
         },
         methods: {
@@ -125,8 +134,8 @@
         padding: 10;
     }
     .keyboard-button{
-        height: 40;
-        width: 40;
+        height: 50;
+        width: 50;
         padding: 10;
         background-image: url('~/assets/images/keyboard.png');
         background-repeat: no-repeat;
