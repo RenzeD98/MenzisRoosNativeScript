@@ -162,6 +162,6 @@
     .input-field{
         font-style: italic;
         border-bottom: 1px solid #ccc;
-        color: white;
+        color: #363636;
     }
 </style>
