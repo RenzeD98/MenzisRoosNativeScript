@@ -32,7 +32,7 @@
                 gender: ''
             }
         },
-        created(){
+        mounted(){
             this.gender = LS.getItem('gender');
             this.context = 
             {
@@ -71,6 +71,11 @@
                     })
                 }).then((response) => {
                     let content = JSON.parse(response.content);
+                    console.log({
+                        context: {
+                            gender: "female"
+                        }
+                    });
                     this.msg = content.output.text;
                     this.context = content.context;
                 }, (e) => {
