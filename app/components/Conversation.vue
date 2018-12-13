@@ -16,11 +16,17 @@
 
 <script>
     import { SpeechRecognition } from "nativescript-speech-recognition";
-    const httpModule = require("http");
     const speechRecognition = new SpeechRecognition();
-    var LS = require("nativescript-localstorage");
+    const LS = require("nativescript-localstorage");
+    const httpModule = require("http");
+    const connectivityModule = require("tns-core-modules/connectivity");
+    const myConnectionType = connectivityModule.getConnectionType();
+    const dialogs = require("tns-core-modules/ui/dialogs");
 
     export default {
+        created() {
+
+        },
         data() {
             return {
                 msg: '',
@@ -29,7 +35,9 @@
                 inputSent: false,
                 isListening: false,
                 context: null,
-                gender: ''
+                gender: '',
+                LSnumber: LS.getItem('LSnumber'),
+                chatHistory: [],
             }
         },
         mounted(){
@@ -43,6 +51,19 @@
             this.getWatsonAnswer();
         },
         methods: {
+            checkInternetConnection() {
+                if(myConnectionType == connectivityModule.connectionType.none) {
+                    dialogs.alert({
+                        title: "Let op!",
+                        message: "Je hebt geen internetverbinding! Maak verbinding met het internet en probeer het opnieuw",
+                        okButtonText: "Ok"
+                    }).then(function () {
+                        console.log("Dialog closed");
+                    });
+                } else {
+                    console.log('wel internet');
+                }
+            },
             keyboardTap(){
                 this.inputToggle = true;
                 this.$nextTick(() => this.$refs.txtField.nativeView.focus())
@@ -79,11 +100,12 @@
                     this.msg = content.output.text;
                     this.context = content.context;
                 }, (e) => {
-                    console.log(e);
+                    this.msg = 'Oeps, er ging iets mis';
+                    this.checkInternetConnection();
                 });
             },
             logMessages(message){
-                localStorage.setItem('messages[]', message);
+                localStorage.setItem('messages', message);
             },
             startOrStopSpeech(){
                 if (this.isListening) {
@@ -103,6 +125,9 @@
                         if (transcription.finished == true) {
                             this.isListening = false;
                             this.getWatsonAnswer();
+
+                            this.chatHistory.push([{'type': 'input', 'message': this.input}]);
+                            LS.setItem('messages', JSON.stringify(this.chatHistory));
                         }
                     },
                 }).then(started => {
@@ -163,5 +188,9 @@
         font-style: italic;
         border-bottom: 1px solid #ccc;
         color: #363636;
+    }
+
+    Dialog {
+        color: black;
     }
 </style>
