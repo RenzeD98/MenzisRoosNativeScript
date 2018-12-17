@@ -1,7 +1,7 @@
 <template>
     <Page actionBarHidden="true" statusBarStyle="light">
         
-    <GridLayout columns="*, *, *" rows="*, *, *, 100, 60, 15">
+    <GridLayout columns="*, *, *" rows="*, *, *, 100, 70, 15">
         <Label class="sent-text roboto-italic" :text="input" row="0" col="1" textWrap="true" v-if="input != ''" @tap="keyboardTap" />
 
         <Label class="main-text roboto" :text="msg" row="1" col="0" colSpan="3" textWrap="true" />
@@ -132,16 +132,14 @@
         padding: 10;
     }
     .keyboard-button{
-        height: 50;
-        width: 50;
-        padding: 10;
         background-image: url('~/assets/images/keyboard.png');
         background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center; 
     }
     .speech-button{
         background-image: url('~/assets/images/speech-idle.png');
         background-repeat: no-repeat;
-        padding-bottom: 10;
         background-attachment: fixed;
         background-position: center; 
     }
