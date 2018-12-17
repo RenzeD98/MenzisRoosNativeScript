@@ -1,16 +1,12 @@
 <template>
     <Page actionBarHidden="true" statusBarStyle="light">
-        
-    <GridLayout columns="*, *, *" rows="*, *, *, 100, 70, 15">
-        <Label class="sent-text roboto-italic" :text="input" row="0" col="1" textWrap="true" v-if="input != ''" @tap="keyboardTap" />
-
-        <Label class="main-text roboto" :text="msg" row="1" col="0" colSpan="3" textWrap="true" />
-        
-        <Button class="speech-button" :class="{'speech-listening' : isListening}" @tap="startOrStopSpeech()" col="0" row="3" colSpan="3"></Button>
-
-        <Button class="keyboard-button" @tap="keyboardTap" v-if="!inputToggle" row="4" col="1" />
-        <TextField ref="txtField" class="input-field roboto" v-model="input" hint="Enter text..." v-if="inputToggle" row="4" col="1" @blur="inputSent = !inputSent" @returnPress="sendInput" returnKeyType="send" />
-    </GridLayout>
+        <GridLayout columns="*, *, *" rows="*, *, *, 100, 70, 15">
+            <Label class="sent-text roboto-italic" :text="input" row="0" col="1" textWrap="true" v-if="input != ''" @tap="keyboardTap" />
+            <Label class="main-text roboto" :text="msg" row="1" col="0" colSpan="3" textWrap="true" />
+            <Button class="speech-button" :class="{'speech-listening' : isListening}" @tap="startOrStopSpeech()" col="0" row="3" colSpan="3"></Button>
+            <Button class="keyboard-button" @tap="keyboardTap" v-if="!inputToggle" row="4" col="1" />
+            <TextField ref="txtField" class="input-field roboto" v-model="input" hint="Enter text..." v-if="inputToggle" row="4" col="1" @blur="inputSent = !inputSent" @returnPress="sendInput" returnKeyType="send" />
+        </GridLayout>
     </Page>
 </template>
 
