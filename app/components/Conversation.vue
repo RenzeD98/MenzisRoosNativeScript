@@ -129,12 +129,17 @@
     }
     .keyboard-button{
         background-image: url('~/assets/images/keyboard.png');
+        border-width: 1;
+        border-color: transparent;
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-position: center; 
     }
     .speech-button{
         background-image: url('~/assets/images/speech-idle.png');
+        border-width: 1;
+        border-color: transparent;
+        height: 100;
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-position: center; 
