@@ -1,8 +1,9 @@
 <template>
     <Page actionBarHidden="true" statusBarStyle="light">
-        <GridLayout columns="*, *, *" rows="*, *, *, 100, 70, 15">
+        <GridLayout columns="*, 160, *" rows="*, *, *, 100, 70, 15">
+            <Button class="voice-button" @tap="voiceToggle = !voiceToggle" :class="{'voice-muted' : !voiceToggle}" row="0" col="2" />
             <Label class="sent-text roboto-italic" :text="input" row="0" col="1" textWrap="true" v-if="input != ''" @tap="keyboardTap" />
-            <Label class="main-text roboto" :text="msg" row="1" col="0" colSpan="3" textWrap="true" />
+            <Label class="main-text roboto" :text="msg" row="1" col="1" textWrap="true" />
             <Button class="speech-button" :class="{'speech-listening' : isListening}" @tap="startOrStopSpeech()" col="0" row="3" colSpan="3"></Button>
             <Button class="keyboard-button" @tap="keyboardTap" v-if="!inputToggle" row="4" col="1" />
             <TextField ref="txtField" class="input-field roboto" v-model="input" hint="Enter text..." v-if="inputToggle" row="4" col="1" @blur="inputSent = !inputSent" @returnPress="sendInput" returnKeyType="send" />
@@ -26,7 +27,8 @@
                 inputSent: false,
                 isListening: false,
                 context: null,
-                gender: ''
+                gender: '',
+                voiceToggle: true
             }
         },
         mounted(){
@@ -47,8 +49,8 @@
                 this.inputToggle = false;
                 this.getWatsonAnswer();
             },
-            editInput(){
-                
+            toggleVoice(){
+
             },
             getWatsonAnswer(){
                 httpModule.request({
@@ -68,7 +70,9 @@
                     let content = JSON.parse(response.content);
                     this.msg = content.output.text;
                     this.context = content.context;
-                    this.$nextTick(() => this.speak());
+                    if(this.voiceToggle){
+                        this.$nextTick(() => this.speak());
+                    }
                 }, (e) => {
                     console.log(e);
                 });
@@ -108,6 +112,7 @@
                 let speakOptions = {
                     text: this.msg[0],
                     speakRate: 1,
+                    pitch: 0.9,
                     language: "nl-NL"
                 }
                 TTS.speak(speakOptions).then(() => {
@@ -129,7 +134,6 @@
     // 4: Goeie resultaat na een aantal vragen
     // 5: Is op het juiste scherm
     // 6: Geeft juiste formaat van vragen weer
-    // 7: Datum input
     }
 </script>
 
@@ -148,7 +152,7 @@
         border-color: transparent;
         background-repeat: no-repeat;
         background-attachment: fixed;
-        background-position: center; 
+        background-position: center;
     }
     .speech-button{
         background-image: url('~/assets/images/speech-idle.png');
@@ -158,6 +162,19 @@
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-position: center; 
+    }
+    .voice-button{
+        background-image: url('~/assets/images/voice.png');
+        border-width: 1;
+        border-color: transparent;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center; 
+        background-size: 100 100;
+        opacity: .5;
+    }
+    .voice-muted{
+        background-image: url('~/assets/images/voice-mute.png');
     }
     .speech-listening{
         background-image: url('~/assets/images/speech-moving.png');
