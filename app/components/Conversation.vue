@@ -12,6 +12,7 @@
 
 <script>
     import { SpeechRecognition } from "nativescript-speech-recognition";
+    import { TNSTextToSpeech, SpeakOptions } from 'nativescript-texttospeech';
     const httpModule = require("http");
     const speechRecognition = new SpeechRecognition();
     var LS = require("nativescript-localstorage");
@@ -67,6 +68,7 @@
                     let content = JSON.parse(response.content);
                     this.msg = content.output.text;
                     this.context = content.context;
+                    this.$nextTick(() => this.speak());
                 }, (e) => {
                     console.log(e);
                 });
@@ -100,6 +102,19 @@
                     },
                     (errorMessage) => { console.log(`Error: ${errorMessage}`); }
                 );
+            },
+            speak(){
+                let TTS = new TNSTextToSpeech();
+                let speakOptions = {
+                    text: this.msg[0],
+                    speakRate: 1,
+                    language: "nl-NL"
+                }
+                TTS.speak(speakOptions).then(() => {
+                    // everything is fine
+                }, (err) => {
+                    console.log(err);
+                });
             },
             stopSpeech(){
                 speechRecognition.stopListening();
