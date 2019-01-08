@@ -1,8 +1,16 @@
-# NativeScript-Vue Application
+# Menzis Roos
 
-> A native application built with NativeScript-Vue
+A native application built with NativeScript-Vue
 
-## Usage
+## Description
+
+A mobile application created for Menzis, a dutch health insurance organization. It's a chatbot created with IBM Watson for triage. It listens to your symptoms and asks relevant questions. It tries to give you advice based on your answers.
+
+## Notes
+
+This app is primarily made for Android. It may complile for IOS, but we can't guarantee that.
+
+## Installation
 
 ``` bash
 # Install dependencies
