@@ -1,7 +1,6 @@
 <template>
     <Page actionBarHidden="true" statusBarStyle="light">
-        <GridLayout columns="*, 160, *" rows="*, *, *, 100, 70, 15">
-            <Button class="voice-button" @tap="voiceToggle = !voiceToggle" :class="{'voice-muted' : !voiceToggle}" row="0" col="2" />
+        <GridLayout columns="*, *, *" rows="*, *, *, 100, 70, 15">
             <Label class="sent-text roboto-italic" :text="input" row="0" col="1" textWrap="true" v-if="input != ''" @tap="keyboardTap" />
             <Label class="main-text roboto" :text="msg" row="1" col="1" textWrap="true" />
             <Button class="speech-button" :class="{'speech-listening' : isListening}" @tap="startOrStopSpeech()" col="0" row="3" colSpan="3"></Button>
@@ -27,16 +26,17 @@
                 inputSent: false,
                 isListening: false,
                 context: null,
-                gender: '',
-                voiceToggle: true
+                gender: ''
             }
         },
-        mounted(){
+        created(){
             this.gender = LS.getItem('gender');
             this.context = 
             {
                 "gender": this.gender
             };
+        },
+        mounted(){
             this.getWatsonAnswer();
         },
         methods: {
@@ -48,9 +48,6 @@
                 this.inputSent = true;
                 this.inputToggle = false;
                 this.getWatsonAnswer();
-            },
-            toggleVoice(){
-
             },
             getWatsonAnswer(){
                 httpModule.request({
@@ -162,19 +159,6 @@
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-position: center; 
-    }
-    .voice-button{
-        background-image: url('~/assets/images/voice.png');
-        border-width: 1;
-        border-color: transparent;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-position: center; 
-        background-size: 100 100;
-        opacity: .5;
-    }
-    .voice-muted{
-        background-image: url('~/assets/images/voice-mute.png');
     }
     .speech-listening{
         background-image: url('~/assets/images/speech-moving.png');
