@@ -67,9 +67,7 @@
                     let content = JSON.parse(response.content);
                     this.msg = content.output.text;
                     this.context = content.context;
-                    if(this.voiceToggle){
-                        this.$nextTick(() => this.speak());
-                    }
+                    this.$nextTick(() => this.speak());
                 }, (e) => {
                     console.log(e);
                 });
