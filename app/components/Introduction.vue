@@ -64,11 +64,21 @@ export default {
         }
     },
     methods: {
+        /** ------------------------------------------------------------
+         * agreeAndContinue
+         * - if the onboarding card has the index of 2, the button is clickable
+         */
         agreeAndContinue() {
             if (this.selectedIndex == 2) {
                 this.$navigateTo(CreateProfile);
             }
         },
+
+        /** ------------------------------------------------------------
+         * indexChange
+         *
+         * @param e
+         */
         indexChange(e){
             console.log(e);
         }

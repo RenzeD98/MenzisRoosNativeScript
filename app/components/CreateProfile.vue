@@ -27,11 +27,23 @@
       }
     },
     methods: {
+
+        /** ------------------------------------------------------------
+         * toNextScreen
+         * - navigates to the converstaion component
+         */
         toNextScreen() {
             if (this.gender != '') {
                 this.$navigateTo(Conversation, {clearHistory: true});
             }
         },
+
+        /** ------------------------------------------------------------
+         * chooseGender
+         * - sets the gender of the user in the localstorage
+         *
+         * @param gender
+         */
         chooseGender(gender) {
             localStorage.setItem('gender', gender);
             this.gender = gender;
