@@ -68,6 +68,8 @@
                     this.msg = content.output.text;
                     this.context = content.context;
                     this.$nextTick(() => this.speak());
+
+                    return this.msg;
                 }, (e) => {
                     console.log(e);
                 });
