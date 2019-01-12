@@ -40,15 +40,33 @@
             this.getWatsonAnswer();
         },
         methods: {
+
+            /** ------------------------------------------------------------
+             * keyboardTap
+             * - shows keyboard for user
+             */
             keyboardTap(){
                 this.inputToggle = true;
                 this.$nextTick(() => this.$refs.txtField.nativeView.focus())
             },
+
+            /** ------------------------------------------------------------
+             * sendInput
+             * - initiates the getWatsonAwnser() function
+             */
             sendInput(){
                 this.inputSent = true;
                 this.inputToggle = false;
                 this.getWatsonAnswer();
             },
+
+            /** ------------------------------------------------------------
+             * getWatsonAnswer
+             * - sends a post request to watson
+             * - puts the result awnser in msg
+             * - puts he context in context
+             * - start the tts function
+             */
             getWatsonAnswer(){
                 httpModule.request({
                     url: "https://gateway-fra.watsonplatform.net/assistant/api/v1/workspaces/1cd29412-4a54-42d6-bdc8-c165cb69bb50/message?version=2018-09-20",
@@ -74,9 +92,11 @@
                     console.log(e);
                 });
             },
-            logMessages(message){
-                localStorage.setItem('messages[]', message);
-            },
+
+            /** ------------------------------------------------------------
+             * startOrStopSpeech
+             * - toggles the startSpeech or stopSpeech functions
+             */
             startOrStopSpeech(){
                 if (this.isListening) {
                     this.stopSpeech();
@@ -84,12 +104,19 @@
                     this.startSpeech();
                 }
             },
+
+            /** ------------------------------------------------------------
+             * startSpeech
+             * - start the NativeScript voice recoginitision listener
+             * - onResult callback will be invoked repeatedly during recognition
+             * - if there is no further voice input, the listeren will stop
+             * - if there is no further voice input, the getWatsonAwsner function will be called
+             */
             startSpeech(){
                 speechRecognition.startListening({
                     // optional, uses the device locale by default
                     locale: "nl-NL",
                     returnPartialResults: true,
-                    // this callback will be invoked repeatedly during recognition
                     onResult: (transcription) => {
                         this.input = transcription.text;
                         if (transcription.finished == true) {
@@ -104,6 +131,11 @@
                     (errorMessage) => { console.log(`Error: ${errorMessage}`); }
                 );
             },
+
+            /** ------------------------------------------------------------
+             * speak
+             * initializes and executes the NativeScript Text To Speech
+             */
             speak(){
                 let TTS = new TNSTextToSpeech();
                 let speakOptions = {
@@ -118,6 +150,12 @@
                     console.log(err);
                 });
             },
+
+            /** ------------------------------------------------------------
+             * stopSpeech
+             * - this will stop the NativeScript voice recoginitision listener
+             * - this wil call the getWatsonAwsner function
+             */
             stopSpeech(){
                 speechRecognition.stopListening();
                 this.isListening = false;
