@@ -8,7 +8,7 @@ A mobile application created for Menzis, a dutch health insurance organization. 
 
 ## Notes
 
-This app is primarily made for Android. It may complile for IOS, but we can't guarantee that.
+This app is primarily made for Android. It may compile for IOS, but we can't guarantee that.
 
 ## Installation
 
