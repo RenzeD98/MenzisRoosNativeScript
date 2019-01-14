@@ -8,7 +8,7 @@
             </Label>
             <Button text="Man" col="1" :class="{'buttonselected' : gender == 'male'}" row="4" colSpan="2" class="custombutton" @tap="chooseGender('male')" />
             <Button text="Vrouw" col="3" :class="{'buttonselected' : gender == 'female'}" row="4" colSpan="2" class="custombutton" @tap="chooseGender('female')" />
-            <Button :class="{'disabled' : gender == ''}" text="Verder" col="2" row="9" colSpan="2" clearHistory="true" @tap="Continue" />
+            <Button :class="{'disabled' : gender == ''}" text="Verder" col="2" row="9" colSpan="2" clearHistory="true" @tap="toNextScreen" />
         </GridLayout>
     </Page>
 </template>
@@ -27,11 +27,23 @@
       }
     },
     methods: {
-        Continue() {
+
+        /** ------------------------------------------------------------
+         * toNextScreen
+         * - navigates to the converstaion component
+         */
+        toNextScreen() {
             if (this.gender != '') {
                 this.$navigateTo(Conversation, {clearHistory: true});
             }
         },
+
+        /** ------------------------------------------------------------
+         * chooseGender
+         * - sets the gender of the user in the localstorage
+         *
+         * @param gender
+         */
         chooseGender(gender) {
             localStorage.setItem('gender', gender);
             this.gender = gender;
@@ -75,7 +87,7 @@
         color: #105D94;
     }
 
-        .disabled{
+    .disabled{
         opacity: .5;
     }
 </style>

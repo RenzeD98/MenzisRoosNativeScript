@@ -1,21 +1,18 @@
 <template>
     <Page actionBarHidden="true" statusBarStyle="light">
-        
-    <GridLayout columns="*, *, *" rows="*, *, *, 100, 60, 15">
-        <Label class="sent-text roboto-italic" :text="input" row="0" col="1" textWrap="true" v-if="input != ''" @tap="keyboardTap" />
-
-        <Label class="main-text roboto" :text="msg" row="1" col="0" colSpan="3" textWrap="true" />
-        
-        <Button class="speech-button" :class="{'speech-listening' : isListening}" @tap="startOrStopSpeech()" col="0" row="3" colSpan="3"></Button>
-
-        <Button class="keyboard-button" @tap="keyboardTap" v-if="!inputToggle" row="4" col="1" />
-        <TextField ref="txtField" class="input-field roboto" v-model="input" hint="Enter text..." v-if="inputToggle" row="4" col="1" @blur="inputSent = !inputSent" @returnPress="sendInput" returnKeyType="send" />
-    </GridLayout>
+        <GridLayout columns="*, *, *" rows="*, *, *, 100, 70, 15">
+            <Label class="sent-text roboto-italic" :text="input" row="0" col="1" textWrap="true" v-if="input != ''" @tap="keyboardTap" />
+            <Label class="main-text roboto" :text="msg" row="1" col="1" textWrap="true" />
+            <Button class="speech-button" :class="{'speech-listening' : isListening}" @tap="startOrStopSpeech()" col="0" row="3" colSpan="3"></Button>
+            <Button class="keyboard-button" @tap="keyboardTap" v-if="!inputToggle" row="4" col="1" />
+            <TextField ref="txtField" class="input-field roboto" v-model="input" hint="Enter text..." v-if="inputToggle" row="4" col="1" @blur="inputSent = !inputSent" @returnPress="sendInput" returnKeyType="send" />
+        </GridLayout>
     </Page>
 </template>
 
 <script>
     import { SpeechRecognition } from "nativescript-speech-recognition";
+    import { TNSTextToSpeech, SpeakOptions } from 'nativescript-texttospeech';
     const speechRecognition = new SpeechRecognition();
     const LS = require("nativescript-localstorage");
     const httpModule = require("http");
@@ -40,14 +37,14 @@
                 chatHistory: [],
             }
         },
-        mounted(){
+        created(){
             this.gender = LS.getItem('gender');
             this.context = 
             {
-                context: {
-                    gender: "female"
-                }
+                "gender": this.gender
             };
+        },
+        mounted(){
             this.getWatsonAnswer();
         },
         methods: {
@@ -64,18 +61,33 @@
                     console.log('wel internet');
                 }
             },
+
+            /** ------------------------------------------------------------
+             * keyboardTap
+             * - shows keyboard for user
+             */
             keyboardTap(){
                 this.inputToggle = true;
                 this.$nextTick(() => this.$refs.txtField.nativeView.focus())
             },
+
+            /** ------------------------------------------------------------
+             * sendInput
+             * - initiates the getWatsonAwnser() function
+             */
             sendInput(){
                 this.inputSent = true;
                 this.inputToggle = false;
                 this.getWatsonAnswer();
             },
-            editInput(){
-                
-            },
+
+            /** ------------------------------------------------------------
+             * getWatsonAnswer
+             * - sends a post request to watson
+             * - puts the result awnser in msg
+             * - puts he context in context
+             * - start the tts function
+             */
             getWatsonAnswer(){
                 httpModule.request({
                     url: "https://gateway-fra.watsonplatform.net/assistant/api/v1/workspaces/1cd29412-4a54-42d6-bdc8-c165cb69bb50/message?version=2018-09-20",
@@ -92,13 +104,11 @@
                     })
                 }).then((response) => {
                     let content = JSON.parse(response.content);
-                    console.log({
-                        context: {
-                            gender: "female"
-                        }
-                    });
                     this.msg = content.output.text;
                     this.context = content.context;
+                    this.$nextTick(() => this.speak());
+
+                    return this.msg;
                 }, (e) => {
                     this.msg = 'Oeps, er ging iets mis';
                     this.checkInternetConnection();
@@ -107,6 +117,11 @@
             logMessages(message){
                 localStorage.setItem('messages', message);
             },
+
+            /** ------------------------------------------------------------
+             * startOrStopSpeech
+             * - toggles the startSpeech or stopSpeech functions
+             */
             startOrStopSpeech(){
                 if (this.isListening) {
                     this.stopSpeech();
@@ -114,12 +129,19 @@
                     this.startSpeech();
                 }
             },
+
+            /** ------------------------------------------------------------
+             * startSpeech
+             * - start the NativeScript voice recoginitision listener
+             * - onResult callback will be invoked repeatedly during recognition
+             * - if there is no further voice input, the listeren will stop
+             * - if there is no further voice input, the getWatsonAwsner function will be called
+             */
             startSpeech(){
                 speechRecognition.startListening({
                     // optional, uses the device locale by default
                     locale: "nl-NL",
                     returnPartialResults: true,
-                    // this callback will be invoked repeatedly during recognition
                     onResult: (transcription) => {
                         this.input = transcription.text;
                         if (transcription.finished == true) {
@@ -137,6 +159,31 @@
                     (errorMessage) => { console.log(`Error: ${errorMessage}`); }
                 );
             },
+
+            /** ------------------------------------------------------------
+             * speak
+             * initializes and executes the NativeScript Text To Speech
+             */
+            speak(){
+                let TTS = new TNSTextToSpeech();
+                let speakOptions = {
+                    text: this.msg[0],
+                    speakRate: 1,
+                    pitch: 0.9,
+                    language: "nl-NL"
+                }
+                TTS.speak(speakOptions).then(() => {
+                    // everything is fine
+                }, (err) => {
+                    console.log(err);
+                });
+            },
+
+            /** ------------------------------------------------------------
+             * stopSpeech
+             * - this will stop the NativeScript voice recoginitision listener
+             * - this wil call the getWatsonAwsner function
+             */
             stopSpeech(){
                 speechRecognition.stopListening();
                 this.isListening = false;
@@ -150,7 +197,6 @@
     // 4: Goeie resultaat na een aantal vragen
     // 5: Is op het juiste scherm
     // 6: Geeft juiste formaat van vragen weer
-    // 7: Datum input
     }
 </script>
 
@@ -164,16 +210,19 @@
         padding: 10;
     }
     .keyboard-button{
-        height: 50;
-        width: 50;
-        padding: 10;
         background-image: url('~/assets/images/keyboard.png');
+        border-width: 1;
+        border-color: transparent;
         background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
     }
     .speech-button{
         background-image: url('~/assets/images/speech-idle.png');
+        border-width: 1;
+        border-color: transparent;
+        height: 100;
         background-repeat: no-repeat;
-        padding-bottom: 10;
         background-attachment: fixed;
         background-position: center; 
     }
